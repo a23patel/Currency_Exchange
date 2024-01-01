@@ -15,6 +15,7 @@ function rate_calculation() {
     .then((res) => res.json())
     .then((data) => {
       const exchange_rate = data.rates[second_currency]
+      const rateForOneUnit = exchange_rate.toFixed(2);
       amountElement_two.value = (
         amountElement_one.value * exchange_rate
       ).toFixed(2)
@@ -24,7 +25,14 @@ function rate_calculation() {
       if (parseInt(amountElement_two.value) < 0) {
         amountElement_two.value = 0
       }
-      rate_element.innerText = `${amountElement_one.value} ${first_currency} = ${amountElement_two.value} ${second_currency}`
+
+      if(parseInt(amountElement_one.value) == 0 && parseInt(amountElement_two.value) == 0){
+        rate_element.innerText = `${amountElement_one.value} ${first_currency} = ${amountElement_two.value} ${second_currency}`
+      }
+      else{
+        rate_element.innerText = `1 ${first_currency} = ${rateForOneUnit} ${second_currency}`
+      }
+      
     })
 }
 
